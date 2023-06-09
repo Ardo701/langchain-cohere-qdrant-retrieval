@@ -53,6 +53,6 @@ def retrieve_info():
     qdrant = Qdrant(client=client, collection_name=collection_name, embedding_function=embeddings.embed_query)
     search_results = qdrant.similarity_search(query, k=2)
     chain = load_qa_chain(OpenAI(openai_api_key=openai_api_key,temperature=0.2), chain_type="stuff")
-    results = chain({"input_documents": search_results, "question": query}, return_only_outputs=False)
+    results = chain({"input_documents": search_results, "question": query}, return_only_outputs=True)
     
     return {"results":results["output_text"]}
